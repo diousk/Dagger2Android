@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MyDaggerDemoApplication</string>
+    <string name="server_address">https://en.wikipedia.org/w/</string>
 </resources>
