@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.david_chen.mydaggerdemoapplication.api.WikiApi;
 
+import java.util.concurrent.TimeUnit;
+
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -38,7 +40,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
         // setup presenter
         String awsAddress = getString(R.string.server_address);
-        OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .readTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(1200, TimeUnit.SECONDS)
+                .retryOnConnectionFailure(false)
+                .build();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(awsAddress)
                 .client(okHttpClient)
