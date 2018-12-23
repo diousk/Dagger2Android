@@ -15,7 +15,12 @@ public class AppModule {
     }
 
     @Provides
-    public SharedPreferences providePrefs() {
+    Context provideContext() {
+        return context.getApplicationContext();
+    }
+
+    @Provides
+    SharedPreferences providePrefs() {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 }

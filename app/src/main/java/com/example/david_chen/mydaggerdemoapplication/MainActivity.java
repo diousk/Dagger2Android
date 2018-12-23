@@ -9,8 +9,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.david_chen.mydaggerdemoapplication.api.WikiApi;
+import com.example.david_chen.mydaggerdemoapplication.di.AppComponent;
+import com.example.david_chen.mydaggerdemoapplication.di.AppModule;
+import com.example.david_chen.mydaggerdemoapplication.di.DaggerAppComponent;
+import com.example.david_chen.mydaggerdemoapplication.di.NetworkModule;
 
-import java.util.concurrent.TimeUnit;
+import javax.inject.Inject;
 
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
@@ -23,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
     MainPresenter mainPresenter;
     ImageView photoImage;
     TextView titleText;
+
+    @Inject WikiApi wikiApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,21 +44,14 @@ public class MainActivity extends AppCompatActivity implements MainView {
             }
         });
 
+        // setup dagger component
+        AppComponent appComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
+                .networkModule(new NetworkModule())
+                .build();
+        appComponent.inject(this);
+
         // setup presenter
-        String awsAddress = getString(R.string.server_address);
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .readTimeout(30, TimeUnit.SECONDS)
-                .connectTimeout(1200, TimeUnit.SECONDS)
-                .retryOnConnectionFailure(false)
-                .build();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(awsAddress)
-                .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
-                .build();
-        WikiApi wikiApi = retrofit.create(WikiApi.class);
-        // a real world presenter is more complex than this one
         mainPresenter = new MainPresenter(this, wikiApi);
     }
 
