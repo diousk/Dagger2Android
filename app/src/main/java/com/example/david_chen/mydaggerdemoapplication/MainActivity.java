@@ -44,12 +44,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
             }
         });
 
-        // setup dagger component
-        AppComponent appComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
-                .networkModule(new NetworkModule())
-                .build();
-        appComponent.inject(this);
+        ((App)getApplication()).getAppComponent().inject(this);
 
         // setup presenter
         mainPresenter = new MainPresenter(this, wikiApi);
