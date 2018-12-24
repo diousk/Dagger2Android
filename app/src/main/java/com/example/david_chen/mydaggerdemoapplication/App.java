@@ -27,11 +27,7 @@ public class App extends Application {
                 .networkModule(new NetworkModule())
                 .build();
         appComponent.inject(this);
-
-        mainComponent = appComponent.plusMain(new MainModule());
     }
 
-    public MainComponent getMainComponent() {
-        return mainComponent;
-    }
+    public AppComponent getAppComponent() { return appComponent; }
 }

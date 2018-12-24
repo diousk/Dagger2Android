@@ -4,12 +4,14 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.david_chen.mydaggerdemoapplication.api.WikiApi;
+import com.example.david_chen.mydaggerdemoapplication.di.MainModule;
 
 import javax.inject.Inject;
 
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Inject WikiApi wikiApi;
     @Inject ConnectivityManager connectivityManager;
+    @Inject WindowManager windowManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
             }
         });
 
-        ((App)getApplication()).getMainComponent().inject(this);
+        ((App)getApplication()).getAppComponent()
+                .plusMain(new MainModule(this))
+                .inject(this);
 
         // setup presenter
         mainPresenter = new MainPresenter(this, wikiApi);
