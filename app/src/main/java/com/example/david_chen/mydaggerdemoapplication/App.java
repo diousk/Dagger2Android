@@ -6,12 +6,16 @@ import android.content.SharedPreferences;
 import com.example.david_chen.mydaggerdemoapplication.di.AppComponent;
 import com.example.david_chen.mydaggerdemoapplication.di.AppModule;
 import com.example.david_chen.mydaggerdemoapplication.di.DaggerAppComponent;
+import com.example.david_chen.mydaggerdemoapplication.di.DaggerMainComponent;
+import com.example.david_chen.mydaggerdemoapplication.di.MainComponent;
+import com.example.david_chen.mydaggerdemoapplication.di.MainModule;
 import com.example.david_chen.mydaggerdemoapplication.di.NetworkModule;
 
 import javax.inject.Inject;
 
 public class App extends Application {
     AppComponent appComponent;
+    MainComponent mainComponent;
     @Inject
     SharedPreferences preferences;
 
@@ -23,9 +27,15 @@ public class App extends Application {
                 .appModule(new AppModule(this))
                 .networkModule(new NetworkModule())
                 .build();
+        appComponent.inject(this);
+
+        mainComponent = DaggerMainComponent.builder()
+                .mainModule(new MainModule())
+                .appComponent(appComponent)
+                .build();
     }
 
-    public AppComponent getAppComponent() {
-        return appComponent;
+    public MainComponent getMainComponent() {
+        return mainComponent;
     }
 }
