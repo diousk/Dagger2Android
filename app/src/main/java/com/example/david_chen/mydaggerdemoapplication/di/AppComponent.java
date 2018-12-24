@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 
 import com.example.david_chen.mydaggerdemoapplication.App;
-import com.example.david_chen.mydaggerdemoapplication.api.WikiApi;
 
 import javax.inject.Singleton;
 
@@ -15,8 +14,6 @@ import dagger.Component;
 @Component(modules = {AppModule.class, NetworkModule.class})
 public interface AppComponent {
     void inject(App app);
-    // for child components use 'dependencies at @Component'
-    WikiApi wikiApi();
-    Context context();
-    SharedPreferences sharedPreferences();
+    // for child components use '@Subcomponent'
+    MainComponent plusMain(MainModule mainModule);
 }

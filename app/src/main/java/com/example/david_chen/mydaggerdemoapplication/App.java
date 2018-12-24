@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import com.example.david_chen.mydaggerdemoapplication.di.AppComponent;
 import com.example.david_chen.mydaggerdemoapplication.di.AppModule;
 import com.example.david_chen.mydaggerdemoapplication.di.DaggerAppComponent;
-import com.example.david_chen.mydaggerdemoapplication.di.DaggerMainComponent;
 import com.example.david_chen.mydaggerdemoapplication.di.MainComponent;
 import com.example.david_chen.mydaggerdemoapplication.di.MainModule;
 import com.example.david_chen.mydaggerdemoapplication.di.NetworkModule;
@@ -29,10 +28,7 @@ public class App extends Application {
                 .build();
         appComponent.inject(this);
 
-        mainComponent = DaggerMainComponent.builder()
-                .mainModule(new MainModule())
-                .appComponent(appComponent)
-                .build();
+        mainComponent = appComponent.plusMain(new MainModule());
     }
 
     public MainComponent getMainComponent() {
