@@ -14,7 +14,6 @@ import javax.inject.Inject;
 
 public class App extends Application {
     AppComponent appComponent;
-    MainComponent mainComponent;
     @Inject
     SharedPreferences preferences;
 

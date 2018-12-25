@@ -14,6 +14,14 @@ import dagger.Component;
 @Component(modules = {AppModule.class, NetworkModule.class})
 public interface AppComponent {
     void inject(App app);
+
+    @Component.Builder
+    interface Builder {
+        Builder appModule(AppModule appModule);
+        Builder networkModule(NetworkModule networkModule);
+        AppComponent build();
+    }
+
     // for child components use '@Subcomponent'
     MainComponent plusMain(MainModule mainModule);
 }
