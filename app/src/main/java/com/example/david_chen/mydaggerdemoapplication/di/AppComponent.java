@@ -23,5 +23,5 @@ public interface AppComponent {
     }
 
     // for child components use '@Subcomponent'
-    MainComponent plusMain(MainModule mainModule);
+    MainComponent.Builder mainBuilder();
 }

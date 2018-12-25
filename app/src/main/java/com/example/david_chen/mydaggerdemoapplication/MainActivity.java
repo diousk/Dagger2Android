@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.david_chen.mydaggerdemoapplication.api.WikiApi;
-import com.example.david_chen.mydaggerdemoapplication.di.MainModule;
 
 import javax.inject.Inject;
 
@@ -40,7 +39,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
         });
 
         ((App)getApplication()).getAppComponent()
-                .plusMain(new MainModule(this))
+                .mainBuilder()
+                .activity(this)
+                .build()
                 .inject(this);
 
         // setup presenter

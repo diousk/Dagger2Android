@@ -11,14 +11,8 @@ import dagger.Provides;
 
 @Module
 public class MainModule {
-    private MainActivity activity;
-
-    public MainModule(MainActivity activity) {
-        this.activity = activity;
-    }
-
     @Provides
-    WindowManager provideWindowManager() {
+    WindowManager provideWindowManager(MainActivity activity) {
         return (WindowManager) activity.getSystemService(Context.WINDOW_SERVICE);
     }
 
