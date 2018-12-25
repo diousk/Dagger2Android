@@ -12,20 +12,19 @@ import com.example.david_chen.mydaggerdemoapplication.di.NetworkModule;
 
 import javax.inject.Inject;
 
-public class App extends Application {
-    AppComponent appComponent;
-    @Inject
-    SharedPreferences preferences;
+import dagger.android.AndroidInjector;
+import dagger.android.DaggerApplication;
+
+public class App extends DaggerApplication {
+    @Inject SharedPreferences preferences;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        // setup dagger component
-        appComponent = DaggerAppComponent.builder()
-                .application(this)
-                .build();
-        appComponent.inject(this);
     }
 
-    public AppComponent getAppComponent() { return appComponent; }
+    @Override
+    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
+        return DaggerAppComponent.builder().create(this);
+    }
 }

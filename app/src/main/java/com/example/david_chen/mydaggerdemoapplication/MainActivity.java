@@ -14,7 +14,9 @@ import com.example.david_chen.mydaggerdemoapplication.api.WikiApi;
 
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity implements MainView {
+import dagger.android.support.DaggerAppCompatActivity;
+
+public class MainActivity extends DaggerAppCompatActivity implements MainView {
 
     MainPresenter mainPresenter;
     ImageView photoImage;
@@ -37,12 +39,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
                 mainPresenter.fetchPageId(534366);
             }
         });
-
-        ((App)getApplication()).getAppComponent()
-                .mainBuilder()
-                .activity(this)
-                .build()
-                .inject(this);
 
         // setup presenter
         mainPresenter = new MainPresenter(this, wikiApi);
