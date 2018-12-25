@@ -22,8 +22,7 @@ public class App extends Application {
         super.onCreate();
         // setup dagger component
         appComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
-                .networkModule(new NetworkModule())
+                .application(this)
                 .build();
         appComponent.inject(this);
     }

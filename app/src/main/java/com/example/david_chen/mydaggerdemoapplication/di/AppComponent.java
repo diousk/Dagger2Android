@@ -8,6 +8,7 @@ import com.example.david_chen.mydaggerdemoapplication.App;
 
 import javax.inject.Singleton;
 
+import dagger.BindsInstance;
 import dagger.Component;
 
 @Singleton
@@ -17,8 +18,7 @@ public interface AppComponent {
 
     @Component.Builder
     interface Builder {
-        Builder appModule(AppModule appModule);
-        Builder networkModule(NetworkModule networkModule);
+        @BindsInstance Builder application(App app);
         AppComponent build();
     }
 
