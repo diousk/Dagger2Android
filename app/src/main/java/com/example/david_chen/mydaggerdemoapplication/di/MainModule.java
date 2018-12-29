@@ -5,12 +5,20 @@ import android.net.ConnectivityManager;
 import android.view.WindowManager;
 
 import com.example.david_chen.mydaggerdemoapplication.MainActivity;
+import com.example.david_chen.mydaggerdemoapplication.MainView;
 
 import dagger.Module;
 import dagger.Provides;
 
 @Module
 public class MainModule {
+
+    @Provides
+    @MainScope
+    MainView provideMainView(MainActivity activity) {
+        return activity;
+    }
+
     @Provides
     WindowManager provideWindowManager(MainActivity activity) {
         return (WindowManager) activity.getSystemService(Context.WINDOW_SERVICE);

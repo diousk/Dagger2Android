@@ -3,6 +3,8 @@ package com.example.david_chen.mydaggerdemoapplication;
 import com.example.david_chen.mydaggerdemoapplication.api.PageResponse;
 import com.example.david_chen.mydaggerdemoapplication.api.WikiApi;
 
+import javax.inject.Inject;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -11,8 +13,14 @@ import io.reactivex.functions.Function;
 public class MainPresenter {
     private WikiApi wikiApi;
     private MainView mainView;
-    public MainPresenter(MainView mainView, WikiApi wikiApi) {
+
+    @Inject
+    public MainPresenter(MainView mainView) {
         this.mainView = mainView;
+    }
+
+    @Inject
+    public void setWikiApi(WikiApi wikiApi) {
         this.wikiApi = wikiApi;
     }
 

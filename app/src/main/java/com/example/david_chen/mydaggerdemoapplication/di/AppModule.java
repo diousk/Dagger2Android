@@ -6,6 +6,8 @@ import android.preference.PreferenceManager;
 
 import com.example.david_chen.mydaggerdemoapplication.App;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -13,11 +15,13 @@ import dagger.Provides;
 public class AppModule {
 
     @Provides
+    @Singleton
     Context provideContext(App app) {
         return app.getApplicationContext();
     }
 
     @Provides
+    @Singleton
     SharedPreferences providePrefs(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }

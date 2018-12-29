@@ -13,12 +13,14 @@ import com.bumptech.glide.Glide;
 import com.example.david_chen.mydaggerdemoapplication.api.WikiApi;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
 
+import dagger.Lazy;
 import dagger.android.support.DaggerAppCompatActivity;
 
 public class MainActivity extends DaggerAppCompatActivity implements MainView {
 
-    MainPresenter mainPresenter;
+    @Inject Provider<MainPresenter> mainPresenter;
     ImageView photoImage;
     TextView titleText;
 
@@ -36,12 +38,9 @@ public class MainActivity extends DaggerAppCompatActivity implements MainView {
         fetchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainPresenter.fetchPageId(534366);
+                mainPresenter.get().fetchPageId(534366);
             }
         });
-
-        // setup presenter
-        mainPresenter = new MainPresenter(this, wikiApi);
     }
 
     @Override
